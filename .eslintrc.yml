@@ -1,0 +1,27 @@
+env:
+  es6: true
+  node: true
+extends: 'eslint:recommended'
+rules:
+  indent:
+    - error
+    - 2
+    - FunctionDeclaration:
+        parameters: first
+      FunctionExpression:
+        parameters: first
+      CallExpression:
+        arguments: first
+      ArrayExpression: first
+      MemberExpression: 0
+  linebreak-style:
+    - error
+    - unix
+  quotes:
+    - error
+    - single
+  semi:
+    - error
+    - always
+  no-console:
+    - off

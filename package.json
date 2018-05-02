@@ -1,0 +1,22 @@
+{
+  "name": "smartcop-hipchat-bot",
+  "version": "0.0.0",
+  "description": "A hipchat bot for smartcop",
+  "engines": {
+    "node": "9.4.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "require-all": "^2.2.0"
+  },
+  "license": "MIT",
+  "devDependencies": {}
+}
