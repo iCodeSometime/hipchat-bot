@@ -11,6 +11,7 @@ let port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
+  console.log('in middleware');
   res.sendMessage = function(messageText) {
     let message = {
       color: 'green',
@@ -24,20 +25,23 @@ app.use(function(req, res, next) {
     console.log('Send and die. Sending:\n' + JSON.stringify(message));
     self.json(message)
   };
+  console.log('done with middleware');
 });
 
 // Define root route.
 app.post('/', (req, res) => {
+  console.log('in post');
   if (req.body.event != 'room_message') {
     res.sendMessage('Oops! Something went wrong. Event is not a room message');
   }
-
+  console.log('event is room_message');
   // Parse the message sent to us from hipchat.
   let message = req.body.item.message.message.toLowerCase().split(' ');
   if (message.shift() != '/smartcop') return;
   let command = message.shift();
   let args = message;
-
+  console.log('parsed command');
+  
   // show help if no command given
   if (command == undefined) {
     command = 'help';
