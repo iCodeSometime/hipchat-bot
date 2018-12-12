@@ -9,7 +9,7 @@ const commands = require('./command_loader.js');
 let port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-
+/*
 app.use(function(req, res, next) {
   console.log('in middleware');
   res.sendMessage = function(messageText) {
@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
   };
   console.log('done with middleware');
 });
-
+*/
 // Define root route.
 app.post('/', (req, res) => {
   console.log('in post');
