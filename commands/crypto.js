@@ -13,7 +13,7 @@ module.exports = {
   help: () => { return 'help message goes here'; }
 };
 
-function cryptoPrice(args, callback) {
+function cryptoPrice(args, res) {
   Promise.all([rp('https://api.coinbase.com/v2/prices/BTC-USD/spot'),
                rp('https://api.coinbase.com/v2/prices/ETH-USD/spot'),
                rp('https://api.coinbase.com/v2/prices/BCH-USD/spot'),
@@ -32,7 +32,7 @@ function cryptoPrice(args, callback) {
         console.log('Error parsing price from CoinBase. Data received was: ' + response);
       }
     }
-    callback(message);
+    res.sendMessage(message);
   }).catch((err) => {
     console.log('Failed executing Promises.all.then. Error: ' + err);
     return 'There was a problem getting the current prices from coinbase';

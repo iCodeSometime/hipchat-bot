@@ -8,14 +8,14 @@ module.exports = {
   help: () => { return genericHelp(); } // can we get more detailed..?
 };
 
-function help(args, callback) {
+function help(args, res) {
   console.log('in help')
   // Must be required in the function, or else the export will still be empty.
   const commands = require('../command_loader.js');
   if (commands.hasOwnProperty(args[0])) {
-    callback(commands[args[0]].help(args.slice(1)));
+    res.sendMessage(commands[args[0]].help(args.slice(1)));
   } else {
-    callback(genericHelp(commands));
+    res.sendMessage(genericHelp(commands));
   }
 }
 

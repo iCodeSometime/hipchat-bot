@@ -22,7 +22,7 @@ const commands = require('require-all')({
   }});
 
 // Remove the ones that don't meet our requirements
-// TODO: This seems messy.
+// TODO: This seems messy. Should use a list of requiements
 let exportBuilder = {};
 for (let command in commands) {
   if (!commands[command].hasOwnProperty('description')) return;
