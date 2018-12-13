@@ -26,7 +26,8 @@ function help(args, res) {
 function genericHelp(commands) {
   var message = '';
   for (let command in commands) {
-    if (!command.hasOwnProperty('description')) continue;
+    console.log('processing ' + command);
+    if (!commands[command].hasOwnProperty('description')) continue;
     message += command + ': ' + commands[command].description + '\n';
   }
   message += '\nFor more information about specific commands, use `help <command>`';
