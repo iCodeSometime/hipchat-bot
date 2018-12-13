@@ -4,7 +4,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const commands = require('./command_loader.js');
+const commands = require('./commands');
 
 let port = process.env.PORT || 5000;
 

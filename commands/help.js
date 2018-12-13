@@ -11,7 +11,7 @@ module.exports = {
 function help(args, res) {
   console.log('in help')
   // Must be required in the function, or else the export will still be empty.
-  const commands = require('../command_loader.js');
+  const commands = require('.');
   if (commands.hasOwnProperty(args[0])) {
     res.sendMessage(commands[args[0]].help(args.slice(1)));
   } else {

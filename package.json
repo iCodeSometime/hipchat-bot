@@ -16,7 +16,7 @@
     "pg": "^7.7.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "require-all": "^2.2.0"
+    "require-directory": "^2.1.1"
   },
   "license": "MIT",
   "devDependencies": {}
