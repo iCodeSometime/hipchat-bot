@@ -49,7 +49,8 @@ app.post('/', (req, res) => {
   }
 
   // Pass control to the command.
-  if (commands.hasOwnProperty(command)) {
+  if (commands.hasOwnProperty(command) &&
+      commands[command].hasOwnProperty('call')) {
     commands[command].call(args, res);
   } else {
     res.sendMessage('Oops! ' + command + ' is not a valid command.');

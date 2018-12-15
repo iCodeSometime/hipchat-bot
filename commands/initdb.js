@@ -2,10 +2,9 @@ const db = require('../shared/db_provider.js');
 
 const fs = require('fs');
 
+// Hidden command. No help
 module.exports = {
-  description: 'Initializes tables. Will delete existing content',
   call: init_db,
-  help: () => { return 'Initializes tables. Will delete existing content' }
 };
 
 function init_db(args, res) {

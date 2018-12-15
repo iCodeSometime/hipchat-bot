@@ -2,10 +2,9 @@ const db = require('../shared/db_provider.js');
 
 const fs = require('fs');
 
+// Hidden command. No help
 module.exports = {
-  description: 'inserts test data',
   call: init_db,
-  help: () => { return 'inserts test data' }
 };
 
 function init_db(args, res) {
