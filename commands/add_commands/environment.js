@@ -13,12 +13,12 @@ valid_options = {
 };
 
 module.exports = {
-  description: 'Adds a new item.',
+  description: 'Adds a new environment.',
   call: add_environment,
   help: () => {
     return 'Use this to add environments to an agency.\n' +
            'There is no need to add the live environment.\n\n' +
-           parser.help('/smartcop add environments', valid_options)
+           parser.help('/smartcop add environment', valid_options)
   }
 };
 
@@ -28,19 +28,23 @@ function add_environment(args, res) {
     return res.sendMessage(options.fail_message);
   }
   console.log('options:\n' + JSON.stringify(options));
-  db.run_sql('insert into environments(name, agency_fkey) values ' +
-             '($1, (select uniquekey from agencies where acronym ilike $2));',
-             [options.name, options.acronym])
+  let query = 'insert into environments(name, agency_fkey) values ' +
+          '($1, (select uniquekey from agencies where acronym ilike $2));';
+  let query_params = [options.name, options.acronym]
+
+  db.run_sql(query, query_params)
     .then(sql_result => {
       if (sql_result.rowCount > 0) {
-        db.run_sql('select * from environments where agency_fkey = ' +
-                   '(select uniquekey from agencies where acronym ilike $1);',
-                   [options.acronym]).then(result => {
-                     message = 'Added successfully. ' + options.acronym +
-                               'now has the following environments:\n';
-                     result.rows.forEach(row => message += row.name + '\n');
-                     res.sendMessage(message);
-                   });
+        let query = 'select * from environments where agency_fkey = ' +
+                    '(select uniquekey from agencies where acronym ilike $1);';
+        let query_params = [options.acronym]
+        db.run_sql(query)
+          .then(result => {
+            message = 'Added successfully. ' + options.acronym +
+                      'now has the following environments:\n';
+            result.rows.forEach(row => message += row.name + '\n');
+            res.sendMessage(message);
+          });
       } else {
         res.sendMessage('oops, something happend.\n' + options.acronym + ' ' +
                         options.name + ' was not created.');

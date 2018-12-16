@@ -37,7 +37,8 @@ values
 insert into distributions(name)
 values
   ('beta'),
-  ('general availability');
+  ('general availability'),
+  ('oldest active');
 
 insert into distribution_releases(distribution_fkey, release_fkey)
 select

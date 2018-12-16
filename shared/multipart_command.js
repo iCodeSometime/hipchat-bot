@@ -22,7 +22,7 @@ module.exports = function(name) {
     } else {
       let message = ''
       for (let command in SubCommands) {
-        message += command + ': ' + SubCommands[command].description;
+        message += command + ': ' + SubCommands[command].description + '\n';
       }
       return message;
     }

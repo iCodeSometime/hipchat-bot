@@ -1,5 +1,6 @@
 const db = require('../../shared/db_provider.js');
 const parser = require('../../shared/complex_arg_parser.js');
+const _ = require('lodash');
 
 valid_options = {
   name: {
@@ -18,24 +19,28 @@ valid_options = {
 };
 
 module.exports = {
-  description: 'Adds a new item.',
-  call: add_environment,
+  description: 'Adds a new agency.',
+  call: add_agency,
   help: () => {
-    return 'Adds an environment to an agency.\n' +
-           'There is no need to add the live environment.\n\n' +
-           parser.help('/smartcop add environments', valid_options)
+    return 'Adds an agency to the managed list.\n' +
+           'The live environment will be added automatically.\n\n' +
+           parser.help('/smartcop add agency', valid_options)
   }
 };
 
-function add_environment(args, res) {
-  options = parser.parse(args, Object.keys(valid_options));
+function add_agency(args, res) {
+  required_options = _.omitBy(valid_options, (val, key) => {
+    return val.optional;
+  });
+  options = parser.parse(args, Object.keys(required_options));
   if (options.failed) {
     return res.sendMessage(options.fail_message);
   }
   console.log('options:\n' + JSON.stringify(options));
+  let query, query_params;
   if (options.hasOwnProperty('parent')) {
     query = 'insert into agencies(name, acronym, parent_fkey) values ' +
-               '($1, $2, (select uniquekey from agencies where acronym ilike $3))';
+                '($1, $2, (select uniquekey from agencies where acronym ilike $3))';
     query_params = [options.name, options.acronym, options.parent];
   } else {
     query = 'insert into agencies(name, acronym) values ($1, $2)'
